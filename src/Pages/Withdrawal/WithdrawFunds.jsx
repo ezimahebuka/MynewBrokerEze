@@ -140,7 +140,6 @@ const WithdrawFunds = () => {
   };
 
   const sendWallet = () => {
-    // Validation
     if (!amount || parseFloat(amount) <= 0) {
       setAmountError("Please enter a valid amount");
       return;
