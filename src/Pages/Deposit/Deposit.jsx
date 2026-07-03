@@ -67,7 +67,7 @@ const Deposit = () => {
     setExpandedMethod((prev) => (prev === methodRoute ? null : methodRoute));
   }, []);
 
-  const unavailableMethods = ["CASHAPP", "PAYPAL", "BANK"];
+  const unavailableMethods = ["CASHAPPf", "PAYPALf", "BANKf"];
 
   const handlePaymentMethodChange = useCallback(
     (methodRoute) => {

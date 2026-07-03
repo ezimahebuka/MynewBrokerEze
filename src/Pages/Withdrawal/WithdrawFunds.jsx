@@ -5,7 +5,6 @@ import { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { swiftUserData } from "../../Components/store/FeaturesSlice";
 import Modal from "../../Components/Modal/Modal";
-import VerificationModal from "../../Components/Modal/VerificationModal";
 import formatAmount from "../../utils/formatAmount";
 
 const WithdrawFunds = () => {
@@ -21,15 +20,12 @@ const WithdrawFunds = () => {
   const [isOTPRequested, setIsOTPRequested] = useState(false);
   const [clickMe, setClickMe] = useState(false);
 
-  // Modal states
   const [showModal, setShowModal] = useState(false);
   const [modalConfig, setModalConfig] = useState({
     type: "success",
     title: "",
     message: "",
   });
-  const [showVerificationModal, setShowVerificationModal] = useState(false);
-  const [verificationData, setVerificationData] = useState(null);
 
   const userData = useSelector((state) => state.persisitedReducer.user);
   const id = userData?._id || "";
@@ -180,31 +176,19 @@ const WithdrawFunds = () => {
       return;
     }
 
-    // Show verification modal before proceeding
-    setShowVerificationModal(true);
-  };
-
-  const handleVerificationComplete = (data) => {
-    // Store verification data
-    setVerificationData(data);
-    setShowVerificationModal(false);
-
-    // Proceed with withdrawal
-    const datas = {
-      walletAddress: walletAddress,
-      amount: amount,
+    // Send withdrawal request directly without additional verification modal
+    const payload = {
+      walletAddress,
+      amount,
       coin: selectedPaymentMethod,
-      ssn: data.ssn,
-      driversLicense: data.driversLicense,
       withdrawCode: withdrawCodes,
     };
 
     setClickMe(true);
     axios
-      .post(urlll, datas)
+      .post(urlll, payload)
       .then((res) => {
         console.log("this is it", res);
-        console.log(res.data.message);
         setClickMe(false);
         setModalConfig({
           type: "success",
@@ -215,7 +199,6 @@ const WithdrawFunds = () => {
         });
         setShowModal(true);
 
-        // Reset form after 2 seconds
         setTimeout(() => {
           window.location.reload();
         }, 2000);
@@ -442,12 +425,6 @@ const WithdrawFunds = () => {
           type={modalConfig.type}
           title={modalConfig.title}
           message={modalConfig.message}
-        />
-
-        <VerificationModal
-          isOpen={showVerificationModal}
-          onClose={() => setShowVerificationModal(false)}
-          onVerify={handleVerificationComplete}
         />
       </div>
     </>
