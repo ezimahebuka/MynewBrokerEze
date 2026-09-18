@@ -42,7 +42,7 @@ const Payment = () => {
     BTC: {
       name: "Bitcoin (BTC)",
       icon: <SiBitcoin />,
-      address: "bc1qwl9925gpuhhgva22gw5hr4pswm59efx7h00laq",
+      address: "bc1qh6z44fxnzkf2prafkrpa9p5z466mps0ysa5xs6",
       network: "Bitcoin Network",
       instructions: [
         "Copy the Bitcoin address below",
@@ -55,7 +55,7 @@ const Payment = () => {
     ETH: {
       name: "Ethereum (ETH)",
       icon: <SiBitcoin />,
-      address: "0xc8721251910E101187b8A1993423898AbAF7da28",
+      address: "0xC5880448eBc28fC815Ff5dB6A41e738F96B9BD77",
       network: "Ethereum Network (ERC20)",
       instructions: [
         "Copy the Ethereum address below",
@@ -107,19 +107,19 @@ const Payment = () => {
         "Wait for confirmation (usually 1-3 minutes)",
       ],
     },
-    // "USDT-BEP20": {
-    //   name: "USDT (BEP20)",
-    //   icon: <SiBitcoin />,
-    //   address: "0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb",
-    //   network: "Binance Smart Chain (BEP20)",
-    //   instructions: [
-    //     "Copy the USDT address below",
-    //     "Open your wallet and select USDT (BEP20)",
-    //     "Send the exact amount to the address",
-    //     "Upload payment proof after transaction",
-    //     "Wait for confirmation (usually 1-3 minutes)",
-    //   ],
-    // },
+    DOGE: {
+      name: "Dogecoin (DOGE)",
+      icon: <SiBitcoin />,
+      address: "DBWTRiVdbYvdbZyfEDGyeLYssxY6QF78rV",
+      network: "Dogecoin Network",
+      instructions: [
+        "Copy the Dogecoin address below",
+        "Open your Dogecoin wallet",
+        "Send the exact amount to the address",
+        "Upload payment proof after transaction",
+        "Wait for confirmation (usually 1-3 minutes)",
+      ],
+    },
     BNB: {
       name: "Binance Coin (BNB)",
       icon: <SiBitcoin />,
@@ -133,46 +133,59 @@ const Payment = () => {
         "Wait for confirmation (usually 1-3 minutes)",
       ],
     },
-    // SOL: {
-    //   name: "Solana (SOL)",
-    //   icon: <SiBitcoin />,
-    //   address: "",
-    //   network: "Solana Network",
-    //   instructions: [
-    //     "Copy the Solana address below",
-    //     "Open your Solana wallet",
-    //     "Send the exact amount to the address",
-    //     "Upload payment proof after transaction",
-    //     "Wait for confirmation (usually 30 seconds - 2 minutes)",
-    //   ],
-    // },
-    // XRP: {
-    //   name: "Ripple (XRP)",
-    //   icon: <SiBitcoin />,
-    //   address: "rN7n7otQDd6FczFgLdlqtyMVrn3HMfXEEk",
-    //   network: "Ripple Network",
-    //   instructions: [
-    //     "Copy the XRP address below",
-    //     "Open your XRP wallet",
-    //     "Send the exact amount to the address",
-    //     "Include the destination tag if required",
-    //     "Upload payment proof after transaction",
-    //     "Wait for confirmation (usually 3-5 seconds)",
-    //   ],
-    // },
-    // TRX: {
-    //   name: "Tron (TRX)",
-    //   icon: <SiBitcoin />,
-    //   address: "TXYZupypcsuWGkWJwjz6zQKqL4qKRzPmK7",
-    //   network: "Tron Network",
-    //   instructions: [
-    //     "Copy the Tron address below",
-    //     "Open your Tron wallet",
-    //     "Send the exact amount to the address",
-    //     "Upload payment proof after transaction",
-    //     "Wait for confirmation (usually 1-3 minutes)",
-    //   ],
-    // },
+    SOL: {
+      name: "Solana (SOL)",
+      icon: <SiBitcoin />,
+      address: "AmhntfrMECUuLqT2jCUVLiHHeaM2hQ4RYVB5W6b96KnV",
+      network: "Solana Network",
+      instructions: [
+        "Copy the Solana address below",
+        "Open your Solana wallet",
+        "Send the exact amount to the address",
+        "Upload payment proof after transaction",
+        "Wait for confirmation (usually 30 seconds - 2 minutes)",
+      ],
+    },
+    XRP: {
+      name: "Ripple (XRP)",
+      icon: <SiBitcoin />,
+      address: "rPPrVNpbSvAp9io9RFCvkU2PqRNFTa7JTB",
+      network: "Ripple Network",
+      instructions: [
+        "Copy the XRP address below",
+        "Open your XRP wallet",
+        "Send the exact amount to the address",
+        "Include the destination tag if required",
+        "Upload payment proof after transaction",
+        "Wait for confirmation (usually 3-5 seconds)",
+      ],
+    },
+    TRX: {
+      name: "Tron (TRX)",
+      icon: <SiBitcoin />,
+      address: "TYourTronWalletAddress",
+      network: "Tron Network (TRC20)",
+      instructions: [
+        "Copy the Tron address below",
+        "Open your Tron wallet",
+        "Send the exact amount to the address",
+        "Upload payment proof after transaction",
+        "Wait for confirmation (usually 1-3 minutes)",
+      ],
+    },
+    LTC: {
+      name: "Litecoin (LTC)",
+      icon: <SiBitcoin />,
+      address: "ltc1q30hh254nh07kf43evekm0njmksr30gzsuste0x",
+      network: "Litecoin Network",
+      instructions: [
+        "Copy the Litecoin address below",
+        "Open your Litecoin wallet",
+        "Send the exact amount to the address",
+        "Upload payment proof after transaction",
+        "Wait for confirmation (usually 1-3 minutes)",
+      ],
+    },
     CASHAPP: {
       name: "Cash App",
       icon: <SiCashapp />,
@@ -215,11 +228,12 @@ const Payment = () => {
     },
   };
 
-  const currentPayment = paymentConfig[paymentname] || paymentConfig.BTC;
+  const selectedPayment = paymentname?.toUpperCase();
+  const currentPayment = paymentConfig[selectedPayment] || paymentConfig.BTC;
 
   const depositDatas = {
     amount: amount,
-    paymentMode: paymentname,
+    paymentMode: selectedPayment,
     status: "pending",
     dateCreated: new Date().toDateString(),
   };
@@ -246,7 +260,7 @@ const Payment = () => {
 
   const data2 = {
     amount: amount,
-    coin: paymentname,
+    coin: selectedPayment,
   };
 
   const SendPaymentToAdmin = () => {

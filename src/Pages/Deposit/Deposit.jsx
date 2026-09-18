@@ -24,9 +24,11 @@ const Deposit = () => {
         { id: "usdt-bep20", name: "USDT (BEP20)", route: "USDT-BEP20" },
         { id: "usdt-trc20", name: "USDT (TRC20)", route: "USDT-TRC20" },
         { id: "bnb", name: "Binance Coin (BNB)", route: "BNB" },
-        // { id: "sol", name: "Solana (SOL)", route: "SOL" },
-        // { id: "xrp", name: "Ripple (XRP)", route: "XRP" },
-        // { id: "trx", name: "Tron (TRX)", route: "TRX" },
+        { id: "sol", name: "Solana (SOL)", route: "SOL" },
+        { id: "xrp", name: "Ripple (XRP)", route: "XRP" },
+        { id: "trx", name: "Tron (TRX)", route: "TRX" },
+        { id: "ltc", name: "Litecoin (LTC)", route: "LTC" },
+        { id: "doge", name: "Dogecoin (DOGE)", route: "DOGE" },
       ],
     },
     { id: "cashapp", name: "Cash App", route: "CASHAPP" },
@@ -67,7 +69,7 @@ const Deposit = () => {
     setExpandedMethod((prev) => (prev === methodRoute ? null : methodRoute));
   }, []);
 
-  const unavailableMethods = ["CASHAPPf", "PAYPALf", "BANKf"];
+  const unavailableMethods = ["CASHAPP", "PAYPAL", "BANK"];
 
   const handlePaymentMethodChange = useCallback(
     (methodRoute) => {
@@ -76,7 +78,7 @@ const Deposit = () => {
           type: "error",
           title: "Payment Method Unavailable",
           message:
-            "This payment method is currently unavailable. Please contact live support or reach us at support@company.com for assistance.",
+            "This payment method is currently unavailable. Please contact live support or reach us at theassetsdevelopment@gmail.com for assistance.",
         });
         setShowModal(true);
         return;

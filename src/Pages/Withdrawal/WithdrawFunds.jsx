@@ -105,10 +105,8 @@ const WithdrawFunds = () => {
 
   const handlePaymentMethodChange = useCallback((methodRoute) => {
     setSelectedPaymentMethod(methodRoute);
-  }, []);
-
-  const handleNetworkSelect = useCallback((networkRoute) => {
-    setSelectedPaymentMethod(networkRoute);
+    setWalletAddress("");
+    setWalletAddressError("");
   }, []);
 
   const sendWithdrawcode = () => {
@@ -315,7 +313,7 @@ const WithdrawFunds = () => {
                                     selectedPaymentMethod === network.route
                                   }
                                   onChange={() =>
-                                    handleNetworkSelect(network.route)
+                                    handlePaymentMethodChange(network.route)
                                   }
                                 />
                               </label>
