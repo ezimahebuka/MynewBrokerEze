@@ -120,17 +120,23 @@ const TradingPlans = () => {
   //     },
   // ];
   const [userPlane, setUserPlane] = useState([]);
-  const getallPlan = () => {
-    const url = "https://mynewbrokerezebackend.onrender.com/api/getallplan";
-    axios
-      .get(url)
-      .then((response) => {
-        // console.log(response.data.data);
-        setUserPlane(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const [plansLoading, setPlansLoading] = useState(true);
+  const [plansError, setPlansError] = useState("");
+  const getallPlan = async () => {
+    try {
+      const response = await axios.get(
+        "https://mynewbrokerezebackend.onrender.com/api/plans/getallplan",
+      );
+      setUserPlane(
+        Array.isArray(response.data?.data) ? response.data.data : [],
+      );
+      setPlansError("");
+    } catch (error) {
+      console.error("Failed to load investment plans:", error);
+      setPlansError("Unable to load investment plans. Please try again.");
+    } finally {
+      setPlansLoading(false);
+    }
   };
 
   const filterPlans = (userPlane) => {
@@ -231,8 +237,12 @@ const TradingPlans = () => {
                   showSelect ? "active" : ""
                 }`}
               >
-                {!userPlane ? (
+                {plansLoading ? (
                   "Loading..."
+                ) : plansError ? (
+                  <p role="alert">{plansError}</p>
+                ) : userPlane.length === 0 ? (
+                  <p>No investment plans are available right now.</p>
                 ) : (
                   <>
                     {userPlane
